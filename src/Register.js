@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from './axios';
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -16,7 +16,9 @@ export default class Registration extends React.Component {
     submit() {
         axios.post('/register', {
             first: this.first,
-            last: this.last
+            last: this.last,
+            email: this.email,
+            password: this.password
         }).then(({data}) => {
             if (data.success) {
                 location.replace('/');
@@ -31,11 +33,32 @@ export default class Registration extends React.Component {
         return (
             <div>
                 {this.state.error && <div className="error">Oops!</div>}
-                <input name="first" onChange={e => this.handleChange(e)} />
-                <input name="last" />
-                <input name="email" />
-                <input name="pass" />
-                <button></button>
+                 <br />
+                <label>
+                First name
+                 <br /><input name="first" onChange={e => this.handleChange(e)} />
+                </label>
+
+                 <br />
+                <label>
+                Last name
+                 <br /><input name="last" />
+                </label>
+
+                 <br />
+                <label>
+                 email
+                 <br /><input name="email" />
+                </label>
+
+                 <br />
+                <label>
+                password
+                 <br /><input name="pass" />
+                </label>
+
+                 <br />
+                 <br /><button>Register</button>
             </div>
         )
     }
