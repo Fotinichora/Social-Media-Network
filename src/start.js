@@ -7,7 +7,7 @@ import Welcome from './welcome';
 
 let elem;
 
-if (location.pathname == '/welcome'){
+if (location.pathname == '/'){
    elem = < Welcome / >
 }
 //i dont need this

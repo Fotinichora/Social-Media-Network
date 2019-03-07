@@ -6,6 +6,7 @@ export default class Registration extends React.Component {
         super(props);
         this.state = {};
         this.handleChange = this.handleChange.bind(this);
+        this.submit = this.submit.bind(this);
     }
     handleChange(e) {
         this[e.target.name] = e.target.value;
@@ -14,11 +15,13 @@ export default class Registration extends React.Component {
         // });
     }
     submit() {
+      console.log(this);
         axios.post('/register', {
-            first: this.first,
-            last: this.last,
+            firstname: this.first,
+            lastname: this.last,
             email: this.email,
-            password: this.password
+            password: this.pass,
+            avatar: "avatar to change"
         }).then(({data}) => {
             if (data.success) {
                 location.replace('/');
@@ -42,23 +45,23 @@ export default class Registration extends React.Component {
                  <br />
                 <label>
                 Last name
-                 <br /><input name="last" />
+                 <br /><input name="last" onChange={e => this.handleChange(e)}/>
                 </label>
 
                  <br />
                 <label>
                  email
-                 <br /><input name="email" />
+                 <br /><input name="email" onChange={e => this.handleChange(e)}/>
                 </label>
 
                  <br />
                 <label>
                 password
-                 <br /><input name="pass" />
+                 <br /><input name="pass" type="password" onChange={e => this.handleChange(e)}/>
                 </label>
 
                  <br />
-                 <br /><button>Register</button>
+                 <br /><button onClick={this.submit}>Register</button>
             </div>
         )
     }
