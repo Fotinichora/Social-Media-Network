@@ -7,6 +7,7 @@ export default class Login extends React.Component {
         super(props);
         this.state = {};
         this.handleChange = this.handleChange.bind(this);
+        this.submit = this.submit.bind(this);
     }
     handleChange(e) {
         this[e.target.name] = e.target.value;
@@ -16,13 +17,13 @@ export default class Login extends React.Component {
     }
     submit() {
         axios.post('/login', {
-            first: this.first,
-            last: this.last,
+
             email: this.email,
             password: this.password
         }).then(({data}) => {
             if (data.success) {
-                location.replace('/');
+              console.log("login success")
+               location.replace('/#/app');
             } else {
                 this.setState({
                     error: true
@@ -34,32 +35,23 @@ export default class Login extends React.Component {
         return (
             <div>
                 {this.state.error && <div className="error">Oops!</div>}
-                 <br />
-                <label>
-                First name
-                 <br /><input name="first" onChange={e => this.handleChange(e)} />
-                </label>
 
-                 <br />
-                <label>
-                Last name
-                 <br /><input name="last" />
-                </label>
+
 
                  <br />
                 <label>
                  email
-                 <br /><input name="email" />
+                 <br /><input name="email" onChange={e => this.handleChange(e)} />
                 </label>
 
                  <br />
                 <label>
                 password
-                 <br /><input name="pass" />
+                 <br /><input name="password" onChange={e => this.handleChange(e)}/>
                 </label>
 
                  <br />
-                 <br /><button>Login</button>
+                 <br /><button onClick={this.submit}>Login</button>
             </div>
         )
     }

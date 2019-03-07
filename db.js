@@ -20,6 +20,23 @@ var db = spicedPg(
           [firstname, lastname, email, hashed, avatar]
       );
   };
+
+// change avatar
+module.exports.updateAvatar = function updateAvatar(userId, avatar) {
+  return db.query(
+      "UPDATE users SET avatar = $1 WHERE id = $2",
+      [avatar, userId]
+  );
+};
+
+// get full user
+module.exports.getUser = function getUser(userId) {
+  return db.query(
+      "SELECT * FROM users WHERE id = $1",
+      [userId]
+  );
+};
+
 //login
   module.exports.loginUser = function loginUser(email, password) {
     var hashed = crypto.createHash('md5').update(password).digest("hex");

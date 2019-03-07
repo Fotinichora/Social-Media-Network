@@ -9,7 +9,7 @@ app.use(cookieParser());
 
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'})); // to put MEGA IMAGES LIKE GOOGLE
 
 if (process.env.NODE_ENV != 'production') {
     app.use(
@@ -31,14 +31,7 @@ if (process.env.NODE_ENV != 'production') {
 // }
 
 
-// app.get('/user', requireLoggedInUser, (req, res) => {
-//     db.getUserById(req.session.userId).then(({rows}) {
-//         const user = rows.pop();
-//         if (!user.image) {
-//             user.image = '/default.jpg';
-//         }
-//     });
-// });
+
 
 
 // app.get('/welcome', function(req, res) {
@@ -79,12 +72,9 @@ app.post("/login", (req, res) => {
       if (results.rows.length > 0) {
         //console.log(results)
         res.cookie("user", results.rows[0].id);
-        res.redirect("thanks");
+        res.send({success:'ok'});
       } else {
-        res.render("login", {
-          //layout: "main",
-          error: "Something went rong TRY AGAIN!!!"
-        });
+        res.send({error:'bad password'});
       }
     })
     .catch(console.log(err => console.log("errr", err)));
@@ -92,7 +82,40 @@ app.post("/login", (req, res) => {
 
 
 
+// get the user from database with avatar same time
+app.get("/user", (req, res) => {
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const userId = parseInt(req.cookies.user);
+  db.getUser(userId).then((users) => {
+    res.send({user:users.rows[0]});
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
 
+
+//upload annoying avatar!
+app.post("/upload_avatar", (req, res) => {
+  const { avatar } = req.body;
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const userId = parseInt(req.cookies.user);
+  console.log("cookii",userId);
+  db.updateAvatar(userId, avatar).then(() => {
+    res.send({success:'ok'});
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+})
 
 
 app.get('*', function(req, res) {

@@ -25,7 +25,7 @@ export default class Registration extends React.Component {
         }).then(({data}) => {
             console.log("Yeah", data)
             if (data.success) {
-                // here i have to ask how to do it correctly via react router
+
                 location.replace('/#/login');
             } else {
                 this.setState({
