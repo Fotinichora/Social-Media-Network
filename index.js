@@ -22,16 +22,24 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+// function requireLoggedInUser(req, res, next) {
+//     if (!req.session.userId) {
+//         res.sendStatus(403);
+//     } else {
+//         next();
+//     }
+// }
 
-//need to fixed.
-// app.post('/register', function(req, res) {
-//   if(req.session.users){
-//     res.redirect('/');
-//   }else{
-//     res.sendFile(__dirname + '/index.html');
-//   }
-//
+
+// app.get('/user', requireLoggedInUser, (req, res) => {
+//     db.getUserById(req.session.userId).then(({rows}) {
+//         const user = rows.pop();
+//         if (!user.image) {
+//             user.image = '/default.jpg';
+//         }
+//     });
 // });
+
 
 // app.get('/welcome', function(req, res) {
 //     if (req.session.userId) {

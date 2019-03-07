@@ -23,8 +23,10 @@ export default class Registration extends React.Component {
             password: this.pass,
             avatar: "avatar to change"
         }).then(({data}) => {
+            console.log("Yeah", data)
             if (data.success) {
-                location.replace('/');
+                // here i have to ask how to do it correctly via react router
+                location.replace('/#/login');
             } else {
                 this.setState({
                     error: true
