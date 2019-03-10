@@ -41,8 +41,8 @@ export default class Uploader extends React.Component {
     render() {
       return (
 
-          <div>
-            <label>
+          <div className="uploadtest">
+            <label className="upladtest2">
               Change my avatar!
               <input name= "image" type="file" onChange={e => this.uploader(e)} />
             </label>

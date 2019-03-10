@@ -38,7 +38,7 @@ export default class App extends React.Component {
         return (
             <div>
 
-                <ProfilePic
+                <ProfilePic 
                     image={this.state.avatarBase64}
                     first={this.state.first}
                     last={this.state.last}
