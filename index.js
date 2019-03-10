@@ -117,6 +117,36 @@ app.post("/upload_avatar", (req, res) => {
   })
 })
 
+//editUserBio
+
+app.post("/editbio", (req, res) => {
+  const { biotext} = req.body;
+  if (!req.cookies.user) {
+    return res.send({
+      error: "You are not Log In"
+    });
+  }
+  const userId = parseInt(req.cookies.user);
+
+  db.editUserBio(userId, biotext)
+    .then(results => {
+      if (results) {
+
+        res.send({success:'ok'})
+      }
+    })
+    .catch(err => res.send({error:err}));
+  });
+
+
+
+
+
+
+
+
+
+
 
 app.get('*', function(req, res) {
     // if (!req.session.userId) {

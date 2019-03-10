@@ -45,3 +45,11 @@ module.exports.getUser = function getUser(userId) {
         [email, hashed]
     );
 };
+
+//editbio
+module.exports.editUserBio = function editUserBio(userId, bioText){
+  return db.query(
+    "UPDATE users SET biotext= $1 WHERE id = $2",
+    [bioText, userId]
+  )
+}

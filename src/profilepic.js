@@ -7,8 +7,8 @@ export default function ProfilePic({ first, last, onClick, image='https://www.fo
 
 
         <img className="profile"
-            width={150}
-            height={150}
+            width={100}
+            height={100}
             src={image}
             alt={`${first} ${last}`}
             onClick={onClick}
