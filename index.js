@@ -7,6 +7,9 @@ const bodyParser = require("body-parser");
 const db = require("./db");
 app.use(cookieParser());
 
+
+app.use(express.static('./public'));
+
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({limit: '50mb'})); // to put MEGA IMAGES LIKE GOOGLE
@@ -22,25 +25,26 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-// function requireLoggedInUser(req, res, next) {
-//     if (!req.session.userId) {
-//         res.sendStatus(403);
-//     } else {
-//         next();
-//     }
-// }
 
 
 
 
 
-// app.get('/welcome', function(req, res) {
-//     if (req.session.userId) {
-//         res.redirect('/');
-//     } else {
-//         res.sendFile(__dirname + '/index.html');
-//     }
-// });
+app.get("/welcome", (req, res) => {
+    if (req.session.userId) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+
+function requireLoggedInUser(req, res, next) {
+    if (!req.session.userId) {
+        res.sendStatus(403);
+    } else {
+        next();
+    }
+}
 
 
 

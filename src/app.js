@@ -4,6 +4,7 @@ import ProfilePic from './profilepic';
 import Uploader from './uploader';
 import Profile from "./profile";
 
+
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -56,17 +57,23 @@ export default class App extends React.Component {
         //     return null;
         // }
         return (
-            <div>
+            <div >
+               <img className="logo" src="/logo.png" />
+               <h1 className="h1test" >Analog Social Network</h1>
 
-                <ProfilePic
+
+
+
+                <ProfilePic 
                     image={this.state.avatarBase64}
                     first={this.state.first}
                     last={this.state.last}
                     onClick={this.showUploader}
                 />
 
-
                 {this.state.uploaderIsVisible && <Uploader setImage={this.setImage} />}
+
+
                 <Profile
                     id={this.state.id}
                     first={this.state.firstname}

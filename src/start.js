@@ -9,16 +9,17 @@ import App from './app';
 
 let elem;
 
-if (location.pathname == '/'){
+if (location.pathname == '/welcome'){
    elem = < Welcome/ >
+}
+else {
+  elem = < App/ >
 }
 //i dont need this
 // else if  (location.pathname == '/register') {
 //     elem = < Registration/>
 // }
-else {
-  elem = <img src = "https://avatars2.githubusercontent.com/u/394668?s=400&v=4" / > ;
-}
+
 
 
 

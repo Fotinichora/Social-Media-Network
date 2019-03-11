@@ -28,7 +28,8 @@ export default class BioEditor extends React.Component {
       }).then(({data}) => {
           console.log("Yeah", data)
           if (data.success) {
-
+            console.log("saved!!!");
+            document.location.reload(true);//still ugly but i like
           } else {
               this.setState({
                   error: true
