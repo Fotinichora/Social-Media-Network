@@ -20,7 +20,7 @@ export default class BioEditor extends React.Component {
   //i need here the axios.
 
   submit(bioText) {
-    //console.log(this);
+    console.log(this);
       axios.post('/editbio', {
           biotext: this.state.bio,
 
