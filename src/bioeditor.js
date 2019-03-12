@@ -23,12 +23,14 @@ export default class BioEditor extends React.Component {
      console.log(this);
       axios.post('/editbio', {
           biotext: this.state.bio,
-
-
       }).then((data) => {
           console.log("Yeah", data)
           if (data.data.success) {
             console.log("saved!!!");
+            
+            //hide the textarea
+            this.setState({editBio: false});
+
             //document.location.reload(true);//still ugly but i like
 
 
