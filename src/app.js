@@ -1,8 +1,10 @@
 import React from 'react';
+import { BrowserRouter, Route } from "react-router-dom";
 import axios from "./axios";
 import ProfilePic from './profilepic';
 import Uploader from './uploader';
 import Profile from "./profile";
+import OtherProfile from "./otherprofile";
 
 
 export default class App extends React.Component {
@@ -34,12 +36,7 @@ export default class App extends React.Component {
     editBio(biotext) {
       console.log("biotext:", biotext);
        this.setState({ bio: biotext });
-
-
     }
-
-
-
 
     componentDidMount() {
         axios.get('/user').then(({data}) => {
@@ -50,8 +47,7 @@ export default class App extends React.Component {
               firstname: data.user.firstname,
               lastname: data.user.lastname,
             });
-            //using base64 to read from database (transfering image as text in database)
-
+            //using base64 to read from database (transfering image as text in database
           }
         })
     }
@@ -64,9 +60,6 @@ export default class App extends React.Component {
                <img className="logo" src="/logo.png" />
                <h1 className="h1test" >Analog Social Network</h1>
 
-
-
-
                 <ProfilePic
                     image={this.state.avatarBase64}
                     first={this.state.first}
@@ -76,25 +69,26 @@ export default class App extends React.Component {
 
                 {this.state.uploaderIsVisible && <Uploader setImage={this.setImage} />}
 
-
-                <Profile
-                    id={this.state.id}
-                    first={this.state.firstname}
-                    last={this.state.lastname}
-                    image={this.state.avatarBase64}
-                    bio={this.state.bio}
-                    editBio={this.editBio}
-                 />
-
-
-
-
+                 <BrowserRouter>
+                  <div>
+                      <Route
+                          exact
+                          path="/"
+                          render={() => (
+                            <Profile
+                                id={this.state.id}
+                                first={this.state.firstname}
+                                last={this.state.lastname}
+                                image={this.state.avatarBase64}
+                                bio={this.state.bio}
+                                editBio={this.editBio}
+                             />
+                          )}
+                      />
+                      <Route path="/user/:id" component={OtherProfile} />
+                  </div>
+                </BrowserRouter>
             </div>
-
-
-
-
-
       );
 
     }

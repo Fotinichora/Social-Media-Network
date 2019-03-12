@@ -16,10 +16,8 @@ export default class Profile extends React.Component {
                 <p>Last name: {this.props.last}</p>
                 <p>Bio: {this.props.bio} </p>
 
+                <BioEditor bio={this.props.bio} editBio={this.props.editBio}/>
 
-
-
-                 <BioEditor bio={this.props.bio} editBio={this.props.editBio}/>
                 <img src={this.props.image} />
 
             </div>

@@ -102,6 +102,16 @@ app.get("/user", (req, res) => {
   })
 });
 
+//otherprofile
+app.get("/user-api/:id", (req, res) => {
+  db.getUser(req.params.id).then((users) => {
+    res.send({user:users.rows[0]});
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
+
 
 //upload annoying avatar!
 app.post("/upload_avatar", (req, res) => {
