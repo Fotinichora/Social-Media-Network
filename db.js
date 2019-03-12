@@ -49,7 +49,7 @@ module.exports.getUser = function getUser(userId) {
 //editbio
 module.exports.editUserBio = function editUserBio(userId, bioText){
   return db.query(
-    "UPDATE users SET biotext= $1 WHERE id = $2",
+    "UPDATE users SET biotext= $1 WHERE id = $2 returning biotext",
     [bioText, userId]
   )
 }

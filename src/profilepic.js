@@ -5,7 +5,7 @@ export default function ProfilePic({ first, last, onClick, image='https://www.fo
     return (
       <div className="prodiv">
       <p className="secp">click the image to change your avatar</p>
-
+     
 
         <img className="profile"
             width={100}

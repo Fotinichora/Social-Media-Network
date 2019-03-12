@@ -20,16 +20,21 @@ export default class BioEditor extends React.Component {
   //i need here the axios.
 
   submit(bioText) {
-    console.log(this);
+     console.log(this);
       axios.post('/editbio', {
           biotext: this.state.bio,
 
 
-      }).then(({data}) => {
+      }).then((data) => {
           console.log("Yeah", data)
-          if (data.success) {
+          if (data.data.success) {
             console.log("saved!!!");
-            document.location.reload(true);//still ugly but i like
+            //document.location.reload(true);//still ugly but i like
+
+
+          this.props.editBio(data.data.results.rows[0].biotext);
+
+
           } else {
               this.setState({
                   error: true
@@ -41,17 +46,22 @@ export default class BioEditor extends React.Component {
 
 
   render() {
+    console.log("this.bio:", this.props);
+      //{this.state.editBio && <BioEditor bio={this.props.bio}/>}
     return (
 
         <div className="textbio">
           <label>
             <h3 className="textbiolabel">Please tell us about you! Write somethimg!!!!</h3>
-            <textarea className="textareatest" value={this.state.value} onChange={this.handleChange} />
+
+            {this.state.editBio && (<div>
+              <button className="button1" onClick={this.submit}>SAVE</button>
+           <textarea className="textareatest" value={this.state.value} onChange={this.handleChange} bio={this.props.bio}/></div>)}
           </label>
 
 
+        <p> <a onClick={()=> {this.setState({editBio: true})}}>Want to edit ? Click here</a></p>
 
-        <button className="button1" onClick={this.submit}>SAVE</button>
         </div>
 
 

@@ -124,7 +124,8 @@ app.post("/upload_avatar", (req, res) => {
 //editUserBio
 
 app.post("/editbio", (req, res) => {
-  const { biotext} = req.body;
+  console.log("req.body:", req.body);
+  const { bioText} = req.body;
   if (!req.cookies.user) {
     return res.send({
       error: "You are not Log In"
@@ -132,11 +133,13 @@ app.post("/editbio", (req, res) => {
   }
   const userId = parseInt(req.cookies.user);
 
-  db.editUserBio(userId, biotext)
+console.log("editBio:", userId, req.body.biotext);
+  db.editUserBio(userId, req.body.biotext)
+
     .then(results => {
       if (results) {
-
-        res.send({success:'ok'})
+console.log(results);
+        res.send({success:'ok', results:results})
       }
     })
     .catch(err => res.send({error:err}));

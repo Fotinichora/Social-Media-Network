@@ -16,10 +16,10 @@ export default class Profile extends React.Component {
                 <p>Last name: {this.props.last}</p>
                 <p>Bio: {this.props.bio} </p>
 
-                <p> <a onClick={()=> {this.setState({editBio: true})}}>Want to edit ? Click here</a></p>
 
 
-                {this.state.editBio && <BioEditor bio={this.props.bio}/>}
+
+                 <BioEditor bio={this.props.bio} editBio={this.props.editBio}/>
                 <img src={this.props.image} />
 
             </div>
@@ -27,3 +27,4 @@ export default class Profile extends React.Component {
 
        }
    }
+  //{this.state.editBio && <BioEditor bio={this.props.bio}/>}

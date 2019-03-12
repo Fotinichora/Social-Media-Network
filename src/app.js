@@ -32,7 +32,10 @@ export default class App extends React.Component {
     }
 
     editBio(biotext) {
-       this.setState({ bio: biotext.bio });
+      console.log("biotext:", biotext);
+       this.setState({ bio: biotext });
+
+
     }
 
 
@@ -64,7 +67,7 @@ export default class App extends React.Component {
 
 
 
-                <ProfilePic 
+                <ProfilePic
                     image={this.state.avatarBase64}
                     first={this.state.first}
                     last={this.state.last}
@@ -80,6 +83,7 @@ export default class App extends React.Component {
                     last={this.state.lastname}
                     image={this.state.avatarBase64}
                     bio={this.state.bio}
+                    editBio={this.editBio}
                  />
 
 
