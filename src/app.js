@@ -5,6 +5,7 @@ import ProfilePic from './profilepic';
 import Uploader from './uploader';
 import Profile from "./profile";
 import OtherProfile from "./otherprofile";
+import FriendButton from "./friendbutton";
 
 
 export default class App extends React.Component {
@@ -38,6 +39,8 @@ export default class App extends React.Component {
        this.setState({ bio: biotext });
     }
 
+
+
     componentDidMount() {
         axios.get('/user').then(({data}) => {
           if(data.user){
@@ -56,7 +59,7 @@ export default class App extends React.Component {
         //     return null;
         // }
         return (
-            <div >
+            <div className="body" >
                <img className="logo" src="/logo.png" />
                <h1 className="h1test" >Analog Social Network</h1>
 
@@ -89,6 +92,7 @@ export default class App extends React.Component {
                   </div>
                 </BrowserRouter>
             </div>
+
       );
 
     }

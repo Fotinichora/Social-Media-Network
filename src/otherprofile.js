@@ -1,4 +1,5 @@
 import React from "react";
+import FriendButton from "./friendbutton";
 
 import axios from "./axios";
 
@@ -30,6 +31,7 @@ export default class OtherProfile extends React.Component {
     //console.log(this.props);
     return (
       <div className="profilediv">
+        <FriendButton userId={this.state.userId}/>
         <p>First name: {this.state.firstname}</p>
         <p>Last name: {this.state.lastname}</p>
         <p>Bio: {this.state.bio} </p>
