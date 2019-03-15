@@ -122,7 +122,28 @@ app.get("/user-api/:id", (req, res) => {
 });
 
 //checkfriend
-app.get("/checkfriend/:id", (req, res) => {
+app.get("/arewefriend/:id", (req, res) => {
+  const theOtherUserId = req.params.id;
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const myUserId = parseInt(req.cookies.user);
+  db.checkFriendship(myUserId, theOtherUserId).then((results) => {
+    if(results.rows.length){
+      res.send({exists: true});
+    } else {
+      res.send({exists: false});
+    }
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
+
+//checkfriend
+app.get("/checkoutgoingfriend/:id", (req, res) => {
   const theOtherUserId = req.params.id;
   if (!req.cookies.user) {
     return res.render("profile", {
@@ -136,6 +157,42 @@ app.get("/checkfriend/:id", (req, res) => {
     } else {
       res.send({exists: false});
     }
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
+
+app.get("/checkincomingfriend/:id", (req, res) => {
+  const theOtherUserId = req.params.id;
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const myUserId = parseInt(req.cookies.user);
+  db.checkFriendRequest(theOtherUserId, myUserId).then((results) => {
+    if(results.rows.length){
+      res.send({exists: true});
+    } else {
+      res.send({exists: false});
+    }
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
+
+app.get("/acceptfriend/:id", (req, res) => {
+  const theOtherUserId = req.params.id;
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const myUserId = parseInt(req.cookies.user);
+  db.acceptFriendRequest(myUserId, theOtherUserId).then((results) => {
+      res.send({success: 'ok'});
   }).catch((err)=>{
     console.log(err)
     res.send({error:err});

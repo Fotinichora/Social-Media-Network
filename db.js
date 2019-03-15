@@ -74,9 +74,15 @@ module.exports.friendRequest = function friendRequest(myId, otherUserId) {
     [otherUserId, myId]
   );
 };
-module.exports.checkFriendRequest = function friendRequest(myId, otherUserId) {
+module.exports.checkFriendship = function checkFriendRequest(myId, otherUserId) {
   return db.query(
-    `SELECT * from friendships WHERE sender = $1 AND receiver = $2`,
+    `SELECT * from friendships WHERE ((receiver =$1 AND sender =$2) OR (receiver =$2 AND sender =$1)) AND accepted = true`,
+    [myId, otherUserId]
+  );
+};
+module.exports.checkFriendRequest = function checkFriendRequest(myId, otherUserId) {
+  return db.query(
+    `SELECT * from friendships WHERE sender = $1 AND receiver = $2 AND accepted = false`,
     [myId, otherUserId]
   );
 };

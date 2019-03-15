@@ -8,6 +8,7 @@ import OtherProfile from "./otherprofile";
 import FriendButton from "./friendbutton";
 import LogOut from "./logout";
 import Login from "./login";
+import Register from './register';
 
 
 export default class App extends React.Component {
@@ -75,13 +76,13 @@ export default class App extends React.Component {
                     onClick={this.logout}
                   />}
 
-                  {this.state.avatarBase64 && <ProfilePic
+                  <ProfilePic
                     image={this.state.avatarBase64}
                     first={this.state.first}
                     last={this.state.last}
                     onClick={this.showUploader}
                     />
-                  }
+                  
 
                 {this.state.uploaderIsVisible && <Uploader setImage={this.setImage} />}
 
@@ -103,6 +104,7 @@ export default class App extends React.Component {
                       />
                       <Route path="/user/:id" component={OtherProfile} />
                       <Route path="/login" component={Login} />
+                      <Route path="/register" component={Register} />
                   </div>
                 </BrowserRouter>
             </div>
