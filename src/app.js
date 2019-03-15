@@ -6,6 +6,8 @@ import Uploader from './uploader';
 import Profile from "./profile";
 import OtherProfile from "./otherprofile";
 import FriendButton from "./friendbutton";
+import LogOut from "./logout";
+import Login from "./login";
 
 
 export default class App extends React.Component {
@@ -22,6 +24,7 @@ export default class App extends React.Component {
         this.showUploader = this.showUploader.bind(this);
         this.setImage = this.setImage.bind(this);
         this.editBio = this.editBio.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     showUploader() {
@@ -37,6 +40,12 @@ export default class App extends React.Component {
     editBio(biotext) {
       console.log("biotext:", biotext);
        this.setState({ bio: biotext });
+    }
+
+    logout(){
+      this.setState({
+        logout: false
+      })
     }
 
 
@@ -62,13 +71,17 @@ export default class App extends React.Component {
             <div className="body" >
                <img className="logo" src="/logo.png" />
                <h1 className="h1test" >Analog Social Network</h1>
+                  {this.state.avatarBase64 && <LogOut
+                    onClick={this.logout}
+                  />}
 
-                <ProfilePic
+                  {this.state.avatarBase64 && <ProfilePic
                     image={this.state.avatarBase64}
                     first={this.state.first}
                     last={this.state.last}
                     onClick={this.showUploader}
-                />
+                    />
+                  }
 
                 {this.state.uploaderIsVisible && <Uploader setImage={this.setImage} />}
 
@@ -89,6 +102,7 @@ export default class App extends React.Component {
                           )}
                       />
                       <Route path="/user/:id" component={OtherProfile} />
+                      <Route path="/login" component={Login} />
                   </div>
                 </BrowserRouter>
             </div>

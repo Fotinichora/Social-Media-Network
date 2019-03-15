@@ -67,7 +67,7 @@ app.post("/register", (req, res) => {
     .catch(err => res.send({error:err}));
 });
 
-
+//login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   db.loginUser(email, password)
@@ -82,6 +82,13 @@ app.post("/login", (req, res) => {
       }
     })
     .catch(console.log(err => console.log("errr", err)));
+});
+
+//logout
+
+app.get("/logout", (req, res) => {
+    res.clearCookie("user");
+    res.send({success:'ok'});
 });
 
 
