@@ -78,6 +78,8 @@ export default class App extends React.Component {
                     onClick={this.logout}
                   />}
 
+                  <button className="Friends" onClick={()=>{location.replace('/friends')}}>Friends</button>
+
                   <ProfilePic
                     image={this.state.avatarBase64}
                     first={this.state.first}
@@ -103,7 +105,7 @@ export default class App extends React.Component {
                                 bio={this.state.bio}
 
                                 editBio={this.editBio}
-                              
+
                              />
                           )}
                       />
