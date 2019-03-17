@@ -31,7 +31,7 @@ export default class LogOut extends React.Component {
 
 
 
-                 <button onClick={this.logout}>Logout</button>
+                 <button className="logout" onClick={this.logout}>Logout</button>
 
         )
     }

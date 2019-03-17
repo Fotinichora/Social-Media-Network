@@ -67,6 +67,20 @@ function getInitialStatus(myId, otherId) {
   return db.query(q, params);
 }
 
+module.exports.checkAllFriendRequests = function checkAllFriendRequests(myId) {
+  return db.query(
+    `SELECT * from friendships INNER JOIN users ON users.id = sender WHERE receiver = $1 AND accepted = false`,
+    [myId]
+  );
+};
+
+module.exports.checkAllFriends = function checkAllFriends(myId) {
+  return db.query(
+    `SELECT * from friendships INNER JOIN users ON users.id = sender WHERE receiver = $1 AND accepted = true`,
+    [myId]
+  );
+};
+
 module.exports.friendRequest = function friendRequest(myId, otherUserId) {
   // first check
   return db.query(

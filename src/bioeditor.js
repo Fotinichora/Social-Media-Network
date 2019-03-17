@@ -27,7 +27,7 @@ export default class BioEditor extends React.Component {
           console.log("Yeah", data)
           if (data.data.success) {
             console.log("saved!!!");
-            
+
             //hide the textarea
             this.setState({editBio: false});
 
@@ -52,14 +52,15 @@ export default class BioEditor extends React.Component {
       //{this.state.editBio && <BioEditor bio={this.props.bio}/>}
     return (
 
-        <div className="textbio">
-          <label>
+        <div >
+
             <h3 className="textbiolabel">Please tell us about you! Write somethimg!!!!</h3>
 
-            {this.state.editBio && (<div>
-              <button className="button1" onClick={this.submit}>SAVE</button>
-           <textarea className="textareatest" value={this.state.value} onChange={this.handleChange} bio={this.props.bio}/></div>)}
-          </label>
+            {this.state.editBio && (<div className="secdiv">
+
+           <textarea className="textareatest" value={this.state.value} onChange={this.handleChange} bio={this.props.bio}/>
+           <button className="button1" onClick={this.submit}>SAVE</button></div>)}
+
 
 
         <p> <a onClick={()=> {this.setState({editBio: true})}}>Want to edit ? Click here</a></p>

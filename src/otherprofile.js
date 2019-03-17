@@ -35,7 +35,7 @@ export default class OtherProfile extends React.Component {
         <p>First name: {this.state.firstname}</p>
         <p>Last name: {this.state.lastname}</p>
         <p>Bio: {this.state.bio} </p>
-        <img src={this.state.avatarBase64} />
+        <img src={this.state.avatarBase64} width={200} />
       </div>
     );
   }

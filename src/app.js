@@ -9,6 +9,7 @@ import FriendButton from "./friendbutton";
 import LogOut from "./logout";
 import Login from "./login";
 import Register from './register';
+import Friends from './friends';
 
 
 export default class App extends React.Component {
@@ -69,8 +70,9 @@ export default class App extends React.Component {
         //     return null;
         // }
         return (
-            <div className="body" >
-               <img className="logo" src="/logo.png" />
+            <div  >
+              <div className="firstdiv">
+               <img className="logo" src="/logo.png"  />
                <h1 className="h1test" >Analog Social Network</h1>
                   {this.state.avatarBase64 && <LogOut
                     onClick={this.logout}
@@ -82,12 +84,13 @@ export default class App extends React.Component {
                     last={this.state.last}
                     onClick={this.showUploader}
                     />
-                  
+
 
                 {this.state.uploaderIsVisible && <Uploader setImage={this.setImage} />}
-
+               </div>
                  <BrowserRouter>
                   <div>
+                    <div className= "userprofilecard">
                       <Route
                           exact
                           path="/"
@@ -98,13 +101,17 @@ export default class App extends React.Component {
                                 last={this.state.lastname}
                                 image={this.state.avatarBase64}
                                 bio={this.state.bio}
+
                                 editBio={this.editBio}
+                              
                              />
                           )}
                       />
+                      </div>
                       <Route path="/user/:id" component={OtherProfile} />
                       <Route path="/login" component={Login} />
                       <Route path="/register" component={Register} />
+                      <Route path="/friends" component={Friends} />
                   </div>
                 </BrowserRouter>
             </div>

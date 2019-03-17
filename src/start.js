@@ -4,22 +4,16 @@ import ReactDOM from 'react-dom';
 import Welcome from './welcome';
 import App from './app';
 
-// import Registration from './register';
-// import Login from './login';
+//redux
+import {Provider} from 'react-redux';
+import {reduxPromise} from 'redux-promise';
+import {createStore, applyMiddleware} from 'redux';
+import reducer from './reducers.js';
+import store from './store.js'
 
 let elem;
 
-if (location.pathname == '/welcome'){
-   elem = < Welcome/ >
-}
-else {
-  elem = < App/ >
-}
-//i dont need this
-// else if  (location.pathname == '/register') {
-//     elem = < Registration/>
-// }
-
+elem = <Provider store={store}><App /></Provider>
 
 
 

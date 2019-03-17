@@ -25,11 +25,6 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-
-
-
-
-
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
@@ -96,7 +91,7 @@ app.get("/logout", (req, res) => {
 // get the user from database with avatar same time
 app.get("/user", (req, res) => {
   if (!req.cookies.user) {
-    return res.render("profile", {
+    return res.send({
       error: "You are not Log In"
     });
   }
@@ -115,6 +110,46 @@ app.get("/user", (req, res) => {
 app.get("/user-api/:id", (req, res) => {
   db.getUser(req.params.id).then((users) => {
     res.send({user:users.rows[0]});
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
+
+// check all fiends friended
+app.get("/checkallfriends", (req, res) => {
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const myUserId = parseInt(req.cookies.user);
+  db.checkAllFriends(myUserId).then((results) => {
+    if(results.rows.length){
+      res.send({results: results.rows});
+    } else {
+      res.send({results: []});
+    }
+  }).catch((err)=>{
+    console.log(err)
+    res.send({error:err});
+  })
+});
+
+// check all fiends requests
+app.get("/checkallfriendreqs", (req, res) => {
+  if (!req.cookies.user) {
+    return res.render("profile", {
+      error: "You are not Log In"
+    });
+  }
+  const myUserId = parseInt(req.cookies.user);
+  db.checkAllFriendRequests(myUserId).then((results) => {
+    if(results.rows.length){
+      res.send({results: results.rows});
+    } else {
+      res.send({results: []});
+    }
   }).catch((err)=>{
     console.log(err)
     res.send({error:err});
