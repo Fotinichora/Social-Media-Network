@@ -126,3 +126,4 @@ module.exports.getUsersByIds= function getUsersByIds(arrayOfIds) {
     const query = `SELECT id, firstname, lastname, avatar FROM users WHERE id = ANY($1)`;
     return db.query(query, [arrayOfIds]);
 }
+//just a comment to update my mess 
