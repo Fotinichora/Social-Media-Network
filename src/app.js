@@ -10,6 +10,7 @@ import LogOut from "./logout";
 import Login from "./login";
 import Register from './register';
 import Friends from './friends';
+import OnlineNow from './onlinenow';
 
 
 export default class App extends React.Component {
@@ -79,6 +80,7 @@ export default class App extends React.Component {
                   />}
 
                   <button className="Friends" onClick={()=>{location.replace('/friends')}}>Friends</button>
+                  <button className="Friends1" onClick={()=>{location.replace('/online')}}>Online</button>
 
                   <ProfilePic
                     image={this.state.avatarBase64}
@@ -114,6 +116,7 @@ export default class App extends React.Component {
                       <Route path="/login" component={Login} />
                       <Route path="/register" component={Register} />
                       <Route path="/friends" component={Friends} />
+                      <Route path="/online" component={OnlineNow} />
                   </div>
                 </BrowserRouter>
             </div>
