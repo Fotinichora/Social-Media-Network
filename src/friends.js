@@ -40,6 +40,19 @@ export class Friends extends React.Component {
       });
     }
 
+    unfriendHandler(id) {
+      axios.get("/cancelfriend/"+id).then(({ data }) => {
+        if (data.success) {
+          axios.get("/checkallfriends").then(({ data }) => {
+            this.props.dispatch(this.getFriends(data));
+          });
+          axios.get("/checkallfriendreqs").then(({ data }) => {
+            this.props.dispatch(this.getFriendsWannabes(data));
+          });
+        }
+      });
+    }
+
     constructor(props) {
         super(props);
         this.state = {};
@@ -68,6 +81,7 @@ export class Friends extends React.Component {
                     <div key={f.id}>
                       <div className="profilediv">
                         <p>Name: {f.firstname}</p> <p>Last:{f.lastname}</p>  <img width={200} height={200} src={f.avatar} />
+                        <button className="friendrequest1"onClick={()=>{this.unfriendHandler(f.id)}}>unfriend</button>
                       </div>
                     </div>
                   )
@@ -86,3 +100,6 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps)(Friends);
+
+
+//i need to add delete friend button

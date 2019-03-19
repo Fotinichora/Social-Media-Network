@@ -19,13 +19,15 @@ export default class Uploader extends React.Component {
       //read the file
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
-          console.log(reader.result);
+          // console.log(reader.result);
           axios.post('/upload_avatar', {
               avatar: reader.result
           }).then(({data}) => {
               if (data.success) {
-                  console.log("avatar changed");
-                  document.location.reload(true); // this is UGLY but works!!lol!
+                // location.replace('/#/app');
+                this.props.onUploaded ? this.props.onUploaded() : '';
+                  // console.log("avatar changed");
+                  // document.location.reload(true); // this is UGLY but works!!lol!
               } else {
                   this.setState({
                       error: true

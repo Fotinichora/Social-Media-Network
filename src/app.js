@@ -12,12 +12,33 @@ import Register from './register';
 import Friends from './friends';
 import OnlineNow from './onlinenow';
 
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else
+    {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+        end = dc.length;
+        }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
+}
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            userId: null,
             uploaderIsVisible: false,
             //using base64 to read from database (transfering image as text in database)
             avatarBase64: null,
@@ -28,6 +49,7 @@ export default class App extends React.Component {
         this.setImage = this.setImage.bind(this);
         this.editBio = this.editBio.bind(this);
         this.logout = this.logout.bind(this);
+        this.uploadedHandler = this.uploadedHandler.bind(this);
     }
 
     showUploader() {
@@ -51,7 +73,19 @@ export default class App extends React.Component {
       })
     }
 
-
+    uploadedHandler() {
+      axios.get('/user').then(({data}) => {
+        if(data.user){
+          this.setState({
+            avatarBase64: data.user.avatar != "avatar to change" ? data.user.avatar : "",
+            bio:data.user.biotext,
+            firstname: data.user.firstname,
+            lastname: data.user.lastname,
+            userId: data.user.id
+          });
+        }
+      })
+    }
 
     componentDidMount() {
         axios.get('/user').then(({data}) => {
@@ -61,8 +95,10 @@ export default class App extends React.Component {
               bio:data.user.biotext,
               firstname: data.user.firstname,
               lastname: data.user.lastname,
+              userId: data.user.id
             });
             //using base64 to read from database (transfering image as text in database
+
           }
         })
     }
@@ -75,22 +111,23 @@ export default class App extends React.Component {
               <div className="firstdiv">
                <img className="logo" src="/logo.png"  />
                <h1 className="h1test" >Analog Social Network</h1>
-                  {this.state.avatarBase64 && <LogOut
+                  {this.state.userId && <LogOut
                     onClick={this.logout}
                   />}
 
-                  <button className="Friends" onClick={()=>{location.replace('/friends')}}>Friends</button>
-                  <button className="Friends1" onClick={()=>{location.replace('/online')}}>Online</button>
+                  {this.state.userId && <button className="Friends" onClick={()=>{location.replace('/friends')}}>Friends</button>}
+                  {this.state.userId && <button className="Friends1" onClick={()=>{location.replace('/online')}}>Online</button>}
 
-                  <ProfilePic
+                  {this.state.userId && <ProfilePic
                     image={this.state.avatarBase64}
                     first={this.state.first}
                     last={this.state.last}
                     onClick={this.showUploader}
                     />
+                  }
 
 
-                {this.state.uploaderIsVisible && <Uploader setImage={this.setImage} />}
+                  {this.state.userId && this.state.uploaderIsVisible && <Uploader onUploaded={this.uploadedHandler} setImage={this.setImage} />}
                </div>
                  <BrowserRouter>
                   <div>
@@ -125,4 +162,4 @@ export default class App extends React.Component {
 
     }
 }
-//just a comment to update my mess 
+//just a comment to update my mess

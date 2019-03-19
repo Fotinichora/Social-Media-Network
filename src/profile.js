@@ -19,7 +19,7 @@ export default class Profile extends React.Component {
 
                 <BioEditor bio={this.props.bio} editBio={this.props.editBio}/>
 
-                <img src={this.props.image} width={200}
+                <img src={this.props.image||'/avatar2.png'} width={200}
                 height={200}/>
 
             </div>
