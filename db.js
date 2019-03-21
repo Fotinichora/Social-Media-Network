@@ -178,4 +178,16 @@ module.exports.getUsersByIds= function getUsersByIds(arrayOfIds) {
     const query = `SELECT id, firstname, lastname, avatar FROM users WHERE id = ANY($1)`;
     return db.query(query, [arrayOfIds]);
 }
+
+//socket
+module.exports.getAllMessages = function getAllMessages(userId, message) {
+    const query = `SELECT * FROM chat INNER JOIN users ON users.id = user_id ORDER BY created ASC`;
+    return db.query(query, []);
+}
+
+//socket
+module.exports.newChatMessage = function newChatMessage(userId, message) {
+    const query = `INSERT INTO chat (user_id, message, created)  VALUES ($1, $2, NOW()) RETURNING *`;
+    return db.query(query, [userId, message]);
+}
 //just a comment to update my mess

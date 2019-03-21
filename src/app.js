@@ -12,6 +12,7 @@ import Register from './register';
 import Friends from './friends';
 import OnlineNow from './onlinenow';
 import AllUsers from './allusers';
+import Chat from './chat';
 
 function getCookie(name) {
     var dc = document.cookie;
@@ -120,6 +121,7 @@ export default class App extends React.Component {
                   {this.state.userId && <button className="Friends1" onClick={()=>{location.replace('/online')}}>Online</button>}
                   {this.state.userId && <button className="Friends2" onClick={()=>{location.replace('/#/app')}}>Profile</button>}
                   {this.state.userId && <button className="Friends3" onClick={()=>{location.replace('/allusers')}}>Analogers</button>}
+                  {this.state.userId && <button className="Friends4" onClick={()=>{location.replace('/chat')}}>Chat</button>}
 
                   {this.state.userId && <ProfilePic
                     image={this.state.avatarBase64}
@@ -158,6 +160,7 @@ export default class App extends React.Component {
                       <Route path="/friends" component={Friends} />
                       <Route path="/online" component={OnlineNow} />
                       <Route path="/allusers" component={AllUsers} />
+                      <Route path="/chat" component={Chat} />
                   </div>
                 </BrowserRouter>
             </div>

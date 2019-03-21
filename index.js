@@ -407,6 +407,22 @@ io.on("connection", socket => {
   // get this user from db
   onlineUsers[socket.id] = parseInt(connectedUserId);
 
+  db.getAllMessages().then(({ rows }) => {
+    io.sockets.emit("chatMessages", {
+      messages: rows
+    });
+  });
+
+  socket.on('chatMessage', (data)=>{
+    db.newChatMessage(connectedUserId, data).then(({ rows }) => {
+      db.getAllMessages().then(({ rows }) => {
+        io.sockets.emit("chatMessages", {
+          messages: rows
+        });
+      });
+    });
+  });
+
   socket.on('disconnect', () => {
     delete onlineUsers[socket.id];
     const dbusers = Object.values(onlineUsers);
