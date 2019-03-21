@@ -117,6 +117,7 @@ export default class App extends React.Component {
 
                   {this.state.userId && <button className="Friends" onClick={()=>{location.replace('/friends')}}>Friends</button>}
                   {this.state.userId && <button className="Friends1" onClick={()=>{location.replace('/online')}}>Online</button>}
+                  {this.state.userId && <button className="Friends2" onClick={()=>{location.replace('/#/app')}}>Profile</button>}
 
                   {this.state.userId && <ProfilePic
                     image={this.state.avatarBase64}
