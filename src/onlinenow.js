@@ -15,6 +15,7 @@ export default class OnlineNow extends React.Component {
   componentDidMount(){
     const socket = io.connect();
     socket.on('onlineUsers', (data) => {
+        console.log("ONLINE USER UPDATE", data)
         this.setState({
           onlineUsers: data.onlineUsers
         })
@@ -38,4 +39,4 @@ export default class OnlineNow extends React.Component {
       )
   }
 }
-//just a comment to update my mess 
+//just a comment to update my mess

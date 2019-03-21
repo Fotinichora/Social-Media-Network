@@ -397,13 +397,18 @@ io.on("connection", socket => {
 
   socket.on('disconnect', () => {
     delete onlineUsers[socket.id];
+    const dbusers = Object.values(onlineUsers);
+    db.getUsersByIds(dbusers).then(({ rows }) => {
+      io.sockets.emit("onlineUsers", {
+        onlineUsers: rows
+      });
+    });
   });
 
   const dbusers = Object.values(onlineUsers);
-  console.log(onlineUsers, dbusers);
 
   db.getUsersByIds(dbusers).then(({ rows }) => {
-    socket.emit("onlineUsers", {
+    io.sockets.emit("onlineUsers", {
       onlineUsers: rows
     });
   });
@@ -421,4 +426,4 @@ io.on("connection", socket => {
   // });
 });
 
-//just a comment to update my mess 
+//just a comment to update my mess

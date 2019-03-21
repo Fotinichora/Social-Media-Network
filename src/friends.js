@@ -100,6 +100,3 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps)(Friends);
-
-
-//i need to add delete friend button
