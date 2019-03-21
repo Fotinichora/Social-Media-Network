@@ -65,6 +65,11 @@ module.exports.getUser = function getUser(userId) {
   return db.query("SELECT * FROM users WHERE id = $1", [userId]);
 };
 
+// get all the useres
+module.exports.getUsersAll = function getUsersAll() {
+  return db.query("SELECT * FROM users");
+}
+
 //login
 module.exports.loginUser = function loginUser(email, password) {
   console.log("hash-> ",bcrypt.compareSync(password, "$2b$04$LgCBMYZMZPXC7dZDnPITIeW7Mwcb54YpMRR4BawcJ0F/v4D6qp8TG"));

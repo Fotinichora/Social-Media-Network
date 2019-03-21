@@ -115,6 +115,18 @@ app.get("/user-api/:id", (req, res) => {
     });
 });
 
+//otherprofile
+app.get("/user-api-all", (req, res) => {
+  db.getUsersAll()
+    .then(users => {
+      res.send({ users: users.rows });
+    })
+    .catch(err => {
+      console.log(err);
+      res.send({ error: err });
+    });
+});
+
 // check all fiends friended
 app.get("/checkallfriends", (req, res) => {
   if (!req.cookies.user) {
